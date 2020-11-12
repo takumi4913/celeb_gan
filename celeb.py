@@ -21,15 +21,15 @@ with tf.Session() as sess:
     out = sess.run(images)
 
     for i, image in enumerate(out):
-        Image.fromarray(np.uint8(image * 255)).save(f"gan_image.jpg")
+        Image.fromarray(np.uint8(image * 255)).save(f"img/gan_image.jpg")
 
 #カスケード分類データの読み込み
-HAAR_FILE = "haarcascade_frontalface_default.xml"
+HAAR_FILE = "data/haarcascade_frontalface_default.xml"
 cascade = cv2.CascadeClassifier(HAAR_FILE)
 
 #生成画像、ユーザ画像の代入
-gan_img = cv2.imread('gan_image.jpg')
-user_img_picture = 'user_image_me.jpg'
+gan_img = cv2.imread('img/gan_image.jpg')
+user_img_picture = 'img/user_image.jpg'
 user_img = cv2.imread(user_img_picture)
 
 #グレースケールへの変換
@@ -50,7 +50,7 @@ gan_resize=cv2.resize(gan_img,(height,width))
 
 #画像の合成
 add = cv2.addWeighted(gan_resize,0.6,face_cut,0.4,0.0)
-cv2.imwrite('add_image.jpg',add)
+cv2.imwrite('img/add_image.jpg',add)
 height, width = add.shape[:2]
 user_img[h:height+h, w:width+w] = add
 
@@ -68,7 +68,7 @@ user_img[h:height+h, w:width+w] = add
 
 #cv2.imwrite('out.png', img2_fg)
 
-cv2.imwrite('result.jpg',user_img)
-#cv2.imshow('add',user_img)
-#cv2.waitKey(0)
-#cv2.destroyAllWindows()
+cv2.imwrite('img/result.jpg',user_img)
+cv2.imshow('add',user_img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
