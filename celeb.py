@@ -69,6 +69,6 @@ user_img[h:height+h, w:width+w] = add
 #cv2.imwrite('out.png', img2_fg)
 
 cv2.imwrite('img/result.jpg',user_img)
-cv2.imshow('add',user_img)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+#cv2.imshow('add',user_img)
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
