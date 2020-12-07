@@ -170,8 +170,29 @@ center_face2 = (int((x + x + w) / 2), int((y + y + h) / 2))
  
 seamlessclone = cv2.seamlessClone(result, img2, img2_head_mask, center_face2, cv2.NORMAL_CLONE)
  
-cv2.imwrite("img/seamlessclone.jpg", seamlessclone)
-cv2.imshow("seamlessclone", seamlessclone)
-cv2.waitKey(0)
- 
-cv2.destroyAllWindows()
+cv2.imwrite("img/result.jpg", seamlessclone)
+
+before = Image.open("img/user_image.jpg")
+after = Image.open("img/result.jpg")
+frames = []
+
+for a in range(0,101,4):
+    alpha = a / 100
+    blended_image = Image.blend(before,after,alpha)
+    frames.append(blended_image)
+
+duration = []
+
+for i in range(len(frames)):
+    if i == 0 or i == len(frames) - 1:
+        duration.append(2000)
+    else:
+        duration.append(50)
+
+frames[0].save(
+    "animation.gif",
+    save_all=True,
+    append_images=frames[1:],
+    duration=duration,
+    loop=2
+)
